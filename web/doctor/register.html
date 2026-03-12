@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediCare+ — Doctor Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../navbar.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 32px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .card-badge { font-size: 36px; margin-bottom: 8px; }
+    .role-label {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #F0FDF4;
+      color: #059669;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 4px;
+    }
+    .card-subtitle { font-size: 14px; color: #64748B; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-size: 14px;
+      color: #1E293B;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px #DBEAFE;
+    }
+
+    .btn-primary {
+      background: #1D4ED8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      margin-top: 4px;
+      transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: #1E40AF; }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #64748B;
+    }
+    .form-footer a {
+      color: #2563EB;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .form-footer a:hover { text-decoration: underline; }
+
+
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">MediCare<span>+</span></a>
+    <div class="navbar-nav">
+      <a href="../doctor/portal.html" class="nav-link">Doctor Portal</a>
+      <a href="../doctor/login.html" class="nav-btn">Login</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-badge">👨‍⚕️</div>
+        <div class="role-label">Doctor</div>
+        <h2 class="card-title">Create Account</h2>
+        <p class="card-subtitle">Register to join MediCare+ as a doctor</p>
+      </div>
+
+      <form action="../doctor/register" method="POST" onsubmit="return validateForm()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="t1" placeholder="Choose a username" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="t2" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="cn">Contact Number</label>
+          <input type="text" id="cn" name="t3" placeholder="10-digit mobile number" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="text" id="email" name="t4" placeholder="yourname@gmail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="t5" placeholder="Minimum 4 characters" required>
+        </div>
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+
+      <div class="form-footer">
+        Already have an account? <a href="../doctor/login.html">Sign in</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.getElementById('username').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const cn = document.getElementById('cn').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if(username.length < 3) {
+        alert('Username must be at least 3 characters');
+        return false;
+      }
+
+      if(name.length <= 2) {
+        alert('Name must be greater than 2 letters');
+        return false;
+      }
+
+      const cnRegex = /^\d{10}$/;
+      if(!cnRegex.test(cn)) {
+        alert('Contact Number must be exactly 10 digits');
+        return false;
+      }
+
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if(!emailRegex.test(email)) {
+        alert('Email must be a valid Gmail address');
+        return false;
+      }
+
+      if(password.length < 4) {
+        alert('Password must be at least 4 characters');
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>

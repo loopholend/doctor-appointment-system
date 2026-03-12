@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediCare+ — Patient Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../navbar.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 32px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .card-badge { font-size: 36px; margin-bottom: 8px; }
+    .role-label {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #EFF6FF;
+      color: #2563EB;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 4px;
+    }
+    .card-subtitle {
+      font-size: 14px;
+      color: #64748B;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-size: 14px;
+      color: #1E293B;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px #DBEAFE;
+    }
+
+    .btn-primary {
+      background: #1D4ED8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      margin-top: 4px;
+      transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: #1E40AF; }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #64748B;
+    }
+    .form-footer a {
+      color: #2563EB;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .form-footer a:hover { text-decoration: underline; }
+
+
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">MediCare<span>+</span></a>
+    <div class="navbar-nav">
+      <a href="../patient/portal.html" class="nav-link">Patient Portal</a>
+      <a href="../patient/register.html" class="nav-btn">Register</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-badge">🏥</div>
+        <div class="role-label">Patient</div>
+        <h2 class="card-title">Patient Login</h2>
+        <p class="card-subtitle">Sign in to access your health portal</p>
+      </div>
+
+      <form action="../patient/login" method="POST">
+        <div class="form-group">
+          <label for="t1">Username</label>
+          <input type="text" id="t1" name="t1" placeholder="Enter your username" required>
+        </div>
+        <div class="form-group">
+          <label for="t2">Password</label>
+          <input type="password" id="t2" name="t2" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn-primary">Sign In</button>
+      </form>
+
+      <div class="form-footer">
+        Don't have an account? <a href="../patient/register.html">Create one</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

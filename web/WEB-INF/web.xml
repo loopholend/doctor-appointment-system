@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" metadata-complete="true" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <!-- Patient Servlets -->
+    <servlet>
+        <servlet-name>PatientLoginServlet</servlet-name>
+        <servlet-class>patient.PatientLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientLoginServlet</servlet-name>
+        <url-pattern>/patient/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientRegistrationServlet</servlet-name>
+        <servlet-class>patient.PatientRegistrationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientRegistrationServlet</servlet-name>
+        <url-pattern>/patient/register</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientDashboardServlet</servlet-name>
+        <servlet-class>patient.PatientDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientDashboardServlet</servlet-name>
+        <url-pattern>/patient/dashboard</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientMedicalDetailsServlet</servlet-name>
+        <servlet-class>patient.PatientMedicalDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientMedicalDetailsServlet</servlet-name>
+        <url-pattern>/patient/medical-details</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientMedicalInfoServlet</servlet-name>
+        <servlet-class>patient.PatientMedicalInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientMedicalInfoServlet</servlet-name>
+        <url-pattern>/patient/medical-info</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientAppointmentsServlet</servlet-name>
+        <servlet-class>patient.PatientAppointmentsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientAppointmentsServlet</servlet-name>
+        <url-pattern>/patient/appointments</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientDeleteAccountServlet</servlet-name>
+        <servlet-class>patient.PatientDeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientDeleteAccountServlet</servlet-name>
+        <url-pattern>/patient/delete-account</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientBookAppointmentServlet</servlet-name>
+        <servlet-class>patient.PatientBookAppointmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientBookAppointmentServlet</servlet-name>
+        <url-pattern>/patient/book-appointment</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientAppointmentServlet</servlet-name>
+        <servlet-class>patient.PatientAppointmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientAppointmentServlet</servlet-name>
+        <url-pattern>/patient/appointment</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PatientCancelAppointmentServlet</servlet-name>
+        <servlet-class>patient.PatientCancelAppointmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientCancelAppointmentServlet</servlet-name>
+        <url-pattern>/patient/cancel-appointment</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Doctor Servlets -->
+    <servlet>
+        <servlet-name>DoctorLoginServlet</servlet-name>
+        <servlet-class>doctor.DoctorLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorLoginServlet</servlet-name>
+        <url-pattern>/doctor/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorRegistrationServlet</servlet-name>
+        <servlet-class>doctor.DoctorRegistrationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorRegistrationServlet</servlet-name>
+        <url-pattern>/doctor/register</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorProfileServlet</servlet-name>
+        <servlet-class>doctor.DoctorProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorProfileServlet</servlet-name>
+        <url-pattern>/doctor/profile</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorProfileEditServlet</servlet-name>
+        <servlet-class>doctor.DoctorProfileEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorProfileEditServlet</servlet-name>
+        <url-pattern>/doctor/profile-edit</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorDashboardServlet</servlet-name>
+        <servlet-class>doctor.DoctorDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorDashboardServlet</servlet-name>
+        <url-pattern>/doctor/dashboard</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorDayOffServlet</servlet-name>
+        <servlet-class>doctor.DoctorDayOffServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorDayOffServlet</servlet-name>
+        <url-pattern>/doctor/day-off</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorSaveDayOffServlet</servlet-name>
+        <servlet-class>doctor.DoctorSaveDayOffServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorSaveDayOffServlet</servlet-name>
+        <url-pattern>/doctor/save-day-off</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorRemoveDayOffServlet</servlet-name>
+        <servlet-class>doctor.DoctorRemoveDayOffServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorRemoveDayOffServlet</servlet-name>
+        <url-pattern>/doctor/remove-day-off</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorDeleteAccountServlet</servlet-name>
+        <servlet-class>doctor.DoctorDeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorDeleteAccountServlet</servlet-name>
+        <url-pattern>/doctor/delete-account</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DoctorPatientDetailsServlet</servlet-name>
+        <servlet-class>doctor.DoctorPatientDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorPatientDetailsServlet</servlet-name>
+        <url-pattern>/doctor/patient-details</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Admin Servlets -->
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>admin.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>admin.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminDoctorRequestsServlet</servlet-name>
+        <servlet-class>admin.AdminDoctorRequestsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDoctorRequestsServlet</servlet-name>
+        <url-pattern>/admin/doctor-requests</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminDoctorsServlet</servlet-name>
+        <servlet-class>admin.AdminDoctorsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDoctorsServlet</servlet-name>
+        <url-pattern>/admin/doctors</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminPatientsServlet</servlet-name>
+        <servlet-class>admin.AdminPatientsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPatientsServlet</servlet-name>
+        <url-pattern>/admin/patients</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminApproveDoctorServlet</servlet-name>
+        <servlet-class>admin.AdminApproveDoctorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminApproveDoctorServlet</servlet-name>
+        <url-pattern>/admin/approve-doctor</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminDeleteDoctorServlet</servlet-name>
+        <servlet-class>admin.AdminDeleteDoctorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteDoctorServlet</servlet-name>
+        <url-pattern>/admin/delete-doctor</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminDeletePatientServlet</servlet-name>
+        <servlet-class>admin.AdminDeletePatientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDeletePatientServlet</servlet-name>
+        <url-pattern>/admin/delete-patient</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminAddDoctorServlet</servlet-name>
+        <servlet-class>admin.AdminAddDoctorServlet</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>52428800</max-request-size>
+            <file-size-threshold>2097152</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAddDoctorServlet</servlet-name>
+        <url-pattern>/admin/add-doctor</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminAddPatientServlet</servlet-name>
+        <servlet-class>admin.AdminAddPatientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAddPatientServlet</servlet-name>
+        <url-pattern>/admin/add-patient</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminReportServlet</servlet-name>
+        <servlet-class>admin.AdminReportServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminReportServlet</servlet-name>
+        <url-pattern>/admin/report</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminSessionDebugServlet</servlet-name>
+        <servlet-class>admin.AdminSessionDebugServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminSessionDebugServlet</servlet-name>
+        <url-pattern>/admin/session-debug</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Common/Logout Servlets -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/admin/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/patient/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/doctor/logout</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+</web-app>

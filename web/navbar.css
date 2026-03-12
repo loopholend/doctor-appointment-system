@@ -1,0 +1,80 @@
+/* =============================================
+   MediCare+ — Shared Navigation Bar Styles
+   ============================================= */
+
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: linear-gradient(to right, #2563EB, #1D4ED8);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.navbar-brand span { opacity: 0.85; font-weight: 500; }
+
+.navbar-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.nav-link.active {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+.nav-btn {
+  color: #1D4ED8;
+  background: #fff;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+.nav-btn:hover { background: #DBEAFE; }
+
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.25);
+  margin: 0 4px;
+}
+
+@media (max-width: 520px) {
+  .navbar { padding: 0 16px; }
+  .navbar-brand { font-size: 17px; }
+  .nav-link { font-size: 13px; padding: 5px 10px; }
+  .nav-btn  { font-size: 13px; padding: 5px 12px; }
+}

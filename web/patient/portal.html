@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediCare+ — Patient Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../navbar.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 32px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .card-badge {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    .role-label {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #EFF6FF;
+      color: #2563EB;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 14px;
+      color: #64748B;
+      margin-bottom: 30px;
+    }
+
+    .btn-group { display: flex; flex-direction: column; gap: 12px; }
+
+    .btn-primary {
+      background: #1D4ED8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: #1E40AF; }
+
+    .btn-outline {
+      background: #fff;
+      color: #1D4ED8;
+      border: 1.5px solid #2563EB;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .btn-outline:hover { background: #EFF6FF; }
+
+
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">MediCare<span>+</span></a>
+    <div class="navbar-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../patient/login.html" class="nav-link">Login</a>
+      <a href="../patient/register.html" class="nav-btn">Register</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="card">
+      <div class="card-badge">🧑‍🤝‍🧑</div>
+      <div class="role-label">Patient</div>
+      <h2 class="card-title">Patient Portal</h2>
+      <p class="card-subtitle">Access your appointments and health records</p>
+
+      <div class="btn-group">
+        <button class="btn-primary" onclick="window.location.href='../patient/login.html'">Login</button>
+        <button class="btn-outline" onclick="window.location.href='../patient/register.html'">Create Account</button>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

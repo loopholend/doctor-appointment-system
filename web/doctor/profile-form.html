@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediCare+ — Doctor Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../navbar.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      padding: 76px 16px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .page-badge { font-size: 36px; margin-bottom: 8px; }
+    .role-label {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #F0FDF4;
+      color: #059669;
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 4px;
+    }
+    .page-subtitle { font-size: 14px; color: #64748B; }
+
+    .card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      padding: 28px 32px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2563EB;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group:last-child { margin-bottom: 0; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="number"],
+    .form-group input[type="file"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-size: 14px;
+      color: #1E293B;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px #DBEAFE;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-group input[type="file"] {
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .profile-preview-wrapper {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    #preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #E2E8F0;
+      display: none;
+    }
+
+    .submit-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      padding: 24px 32px;
+    }
+    .btn-primary {
+      background: #1D4ED8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: #1E40AF; }
+
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">MediCare<span>+</span></a>
+    <div class="navbar-nav">
+      <a href="../doctor/dashboard" class="nav-link">Dashboard</a>
+      <a href="../doctor/logout" class="nav-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="form-container">
+      <div class="page-header">
+        <div class="page-badge">👨‍⚕️</div>
+        <div class="role-label">Doctor</div>
+        <h1 class="page-title">Doctor Profile Setup</h1>
+        <p class="page-subtitle">Complete your professional profile to get started</p>
+      </div>
+
+      <form id="doctorForm" action="../doctor/profile" method="post" enctype="multipart/form-data">
+
+        <!-- Personal Information -->
+        <div class="card">
+          <div class="section-title">Personal Information</div>
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Dr. John Smith" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Details -->
+        <div class="card">
+          <div class="section-title">Professional Details</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="license">Medical License Number</label>
+              <input type="text" id="license" name="license" placeholder="e.g., MCI-12345" required>
+            </div>
+            <div class="form-group">
+              <label for="experience">Years of Experience</label>
+              <input type="text" id="experience" name="experience" placeholder="e.g., 10 years" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="primarySpeciality">Primary Speciality</label>
+            <input type="text" id="primarySpeciality" name="primarySpeciality" placeholder="e.g., Cardiologist" required>
+          </div>
+          <div class="form-group">
+            <label for="secondarySpeciality">Secondary Speciality</label>
+            <select id="secondarySpeciality" name="secondarySpeciality">
+              <option value="none">None</option>
+              <option value="custom">Other (Specify below)</option>
+            </select>
+          </div>
+          <div class="form-group" id="customSpecialityGroup" style="display: none;">
+            <label for="customSpeciality">Specify Secondary Speciality</label>
+            <input type="text" id="customSpeciality" name="customSpeciality" placeholder="Enter your secondary speciality">
+          </div>
+        </div>
+
+        <!-- Practice Info -->
+        <div class="card">
+          <div class="section-title">Practice Information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fee">Consultation Fee (₹)</label>
+              <input type="number" id="fee" name="fee" placeholder="e.g., 500" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="timeSlot">Clinic Visit Time Slot</label>
+              <input type="text" id="timeSlot" name="timeSlot" placeholder="e.g., 10 AM – 2 PM" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bio">Short Bio</label>
+            <textarea id="bio" name="bio" placeholder="Write a short professional bio for patients to see..." required></textarea>
+          </div>
+        </div>
+
+        <!-- Profile Photo -->
+        <div class="card">
+          <div class="section-title">Profile Photo</div>
+          <div class="form-group">
+            <label for="profileImage">Upload Profile Image</label>
+            <input type="file" id="profileImage" name="profileImage" accept="image/*" required>
+          </div>
+          <div class="profile-preview-wrapper">
+            <img id="preview" alt="Profile Preview">
+          </div>
+        </div>
+
+        <div class="submit-card">
+          <button type="submit" class="btn-primary">Submit Profile</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const profileImage = document.getElementById("profileImage");
+    const preview = document.getElementById("preview");
+    const secondarySpeciality = document.getElementById("secondarySpeciality");
+    const customSpeciality = document.getElementById("customSpeciality");
+
+    // Show/Hide secondary speciality input
+    secondarySpeciality.addEventListener("change", () => {
+      if (secondarySpeciality.value === "custom") {
+        customSpeciality.style.display = "block";
+        document.getElementById("customSpecialityGroup").style.display = "block";
+        customSpeciality.required = true;
+      } else {
+        document.getElementById("customSpecialityGroup").style.display = "none";
+        customSpeciality.style.display = "none";
+        customSpeciality.required = false;
+      }
+    });
+
+    // Image preview
+    profileImage.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // ✓ Form submit handler REMOVED - form will now submit to servlet
+  </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediCare+ — Choose Role</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      background: #F8FAFC;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 32px;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    .hero-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: #64748B;
+      margin-bottom: 40px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .role-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      padding: 32px 20px 28px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+      display: block;
+    }
+    .role-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.12), 0 2px 8px rgba(0,0,0,0.08);
+      border-color: #2563EB;
+    }
+
+    .role-icon {
+      font-size: 40px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .badge-patient { background: #EFF6FF; color: #2563EB; }
+    .badge-doctor  { background: #F0FDF4; color: #059669; }
+    .badge-admin   { background: #FEF2F2; color: #DC2626; }
+
+    .role-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+    .role-desc {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .role-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">MediCare<span>+</span></a>
+    <div class="navbar-nav">
+      <a href="patient/portal.html" class="nav-link">Patient</a>
+      <a href="doctor/portal.html" class="nav-link">Doctor</a>
+      <a href="admin/login.html" class="nav-link">Admin</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="hero">
+      <h1 class="hero-title">Welcome to MediCare+</h1>
+      <p class="hero-sub">Please select your role to continue</p>
+
+      <div class="role-grid">
+        <a class="role-card" href="patient/portal.html">
+          <span class="role-icon">🧑‍🤝‍🧑</span>
+          <div class="role-badge badge-patient">Patient</div>
+          <div class="role-name">Patient Portal</div>
+          <div class="role-desc">Book appointments, manage your health records and track your medical history.</div>
+        </a>
+
+        <a class="role-card" href="doctor/portal.html">
+          <span class="role-icon">👨‍⚕️</span>
+          <div class="role-badge badge-doctor">Doctor</div>
+          <div class="role-name">Doctor Portal</div>
+          <div class="role-desc">Manage patient appointments, update your profile and view schedules.</div>
+        </a>
+
+        <a class="role-card" href="admin/login.html">
+          <span class="role-icon">🔒</span>
+          <div class="role-badge badge-admin">Admin</div>
+          <div class="role-name">Admin Panel</div>
+          <div class="role-desc">Manage users, oversee operations and configure system settings.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
