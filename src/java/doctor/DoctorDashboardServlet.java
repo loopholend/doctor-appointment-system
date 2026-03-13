@@ -270,8 +270,13 @@ public class DoctorDashboardServlet extends HttpServlet {
         out.println(".patient-name{font-size:18px;font-weight:700;color:#1E293B;margin-bottom:8px}");
         out.println(".appointment-time{font-size:14px;color:#64748B;margin-bottom:6px}");
         out.println(".appointment-date{font-size:15px;color:#2563EB;font-weight:600;margin-bottom:16px}");
-        out.println(".view-btn{width:100%;padding:10px 20px;background:#1D4ED8;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s}");
+        out.println(".view-btn{width:100%;padding:10px 20px;background:#1D4ED8;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;margin-bottom:8px}");
         out.println(".view-btn:hover{background:#1E40AF}");
+        out.println(".card-actions{display:flex;gap:8px;margin-top:4px}");
+        out.println(".done-btn{flex:1;padding:8px;background:#16A34A;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}");
+        out.println(".done-btn:hover{background:#15803D}");
+        out.println(".noshow-btn{flex:1;padding:8px;background:#DC2626;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}");
+        out.println(".noshow-btn:hover{background:#B91C1C}");
         out.println(".no-appointments{text-align:center;padding:80px 20px}");
         out.println(".no-appointments h2{font-size:22px;color:#1E293B;margin-bottom:12px;font-weight:700}");
         out.println(".no-appointments p{font-size:15px;color:#64748B}");
@@ -318,6 +323,18 @@ public class DoctorDashboardServlet extends HttpServlet {
                 out.println("<input type='hidden' name='patientUsername' value='" + NavHelper.esc(patientUsername) + "'>");
                 out.println("<button type='submit' class='view-btn'>View Details</button>");
                 out.println("</form>");
+                out.println("<div class='card-actions'>");
+                out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark as completed?\")'>");
+                out.println("<input type='hidden' name='appointmentId' value='" + rs.getInt("appointment_id") + "'>");
+                out.println("<input type='hidden' name='action' value='complete'>");
+                out.println("<button type='submit' class='done-btn'>&#10003; Completed</button>");
+                out.println("</form>");
+                out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark as no-show?\")'>");
+                out.println("<input type='hidden' name='appointmentId' value='" + rs.getInt("appointment_id") + "'>");
+                out.println("<input type='hidden' name='action' value='noshow'>");
+                out.println("<button type='submit' class='noshow-btn'>&#10007; No-Show</button>");
+                out.println("</form>");
+                out.println("</div>");
                 out.println("</div>");
             }
             
