@@ -107,8 +107,8 @@ public class AdminAddDoctorServlet extends HttpServlet {
                 ps = conn.prepareStatement(
                     "INSERT INTO doctor_profiles (username,email_address,full_name,gender,date_of_birth," +
                     "medical_license_number,years_of_experience,primary_specialty,secondary_specialty," +
-                    "consultation_fee,clinic_visit_schedule,professional_bio,approval_status)" +
-                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'approved')");
+                    "consultation_fee,clinic_visit_schedule,professional_bio,profile_image,approval_status)" +
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'approved')");
                 ps.setString(1, username.trim());
                 ps.setString(2, email.trim());
                 ps.setString(3, fullName.trim());
@@ -121,6 +121,7 @@ public class AdminAddDoctorServlet extends HttpServlet {
                 ps.setDouble(10, Double.parseDouble(fee));
                 ps.setString(11, timeSlot.trim());
                 ps.setString(12, bio.trim());
+                ps.setBytes(13, new byte[0]);
             }
             ps.executeUpdate();
             conn.commit();

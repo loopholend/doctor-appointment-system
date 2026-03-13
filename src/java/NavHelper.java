@@ -114,6 +114,7 @@ public class NavHelper {
         out.println("<div class='sidebar'>");
         out.println("  <div class='welcome'>&#128104;&#8205;&#9877; Dr. " + esc(doctorName != null ? doctorName : "Doctor") + "</div>");
         out.println("  <a href='dashboard' class='menu-item" + ("patients".equals(a) ? " active" : "") + "'>&#128101; View Patients</a>");
+        out.println("  <a href='appointments' class='menu-item" + ("appointments".equals(a) ? " active" : "") + "'>&#128203; My Appointments</a>");
         out.println("  <a href='profile-edit'       class='menu-item" + ("profile".equals(a)  ? " active" : "") + "'>&#9999; Update Profile</a>");
         out.println("  <a href='day-off'           class='menu-item" + ("dayoff".equals(a)   ? " active" : "") + "'>&#128197; Manage Day Off</a>");
         out.println("  <a href='delete-account' class='menu-item" + ("delete".equals(a) ? " active" : "") + "'>&#128465; Delete Account</a>");

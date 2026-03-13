@@ -47,7 +47,9 @@ public class DoctorLoginServlet extends HttpServlet {
                     }
                 }
 
-                // Successful login - CREATE SESSION WITH ALL DATA
+                // Successful login - invalidate old session first to prevent session fixation
+                HttpSession oldSession = request.getSession(false);
+                if (oldSession != null) oldSession.invalidate();
                 HttpSession session = request.getSession(true);
                 session.setAttribute("doctorId", rs.getInt("id"));
                 session.setAttribute("doctorName", rs.getString("full_name"));

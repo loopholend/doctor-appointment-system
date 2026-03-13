@@ -141,11 +141,11 @@ public class PatientDashboardServlet extends HttpServlet {
                 }
                 
                 out.println("<div class='card-content'>");
-                out.println("<div class='doctor-name'>Dr. " + rs.getString("full_name") + "</div>");
+                out.println("<div class='doctor-name'>Dr. " + NavHelper.esc(rs.getString("full_name")) + "</div>");
                 
                 out.println("<div class='info-row'>");
                 out.println("<span class='info-label'>Specialty:</span>");
-                out.println("<span class='info-value'>" + rs.getString("primary_specialty") + "</span>");
+                out.println("<span class='info-value'>" + NavHelper.esc(rs.getString("primary_specialty")) + "</span>");
                 out.println("</div>");
                 
                 out.println("<div class='info-row'>");
@@ -155,17 +155,17 @@ public class PatientDashboardServlet extends HttpServlet {
                 
                 out.println("<div class='info-row'>");
                 out.println("<span class='info-label'>Time:</span>");
-                out.println("<span class='info-value'>" + rs.getString("clinic_visit_schedule") + "</span>");
+                out.println("<span class='info-value'>" + NavHelper.esc(rs.getString("clinic_visit_schedule")) + "</span>");
                 out.println("</div>");
                 
                 out.println("<div class='info-row'>");
                 out.println("<span class='info-label'>Experience:</span>");
-                out.println("<span class='info-value'>" + rs.getString("years_of_experience") + " years</span>");
+                out.println("<span class='info-value'>" + NavHelper.esc(rs.getString("years_of_experience")) + " years</span>");
                 out.println("</div>");
                 
                 String bio = rs.getString("professional_bio");
                 if (bio != null && !bio.isEmpty()) {
-                    out.println("<div class='bio'>" + bio + "</div>");
+                    out.println("<div class='bio'>" + NavHelper.esc(bio) + "</div>");
                 }
                 
                 out.println("<form action='book-appointment' method='GET'>");

@@ -288,15 +288,6 @@
         <url-pattern>/admin/report</url-pattern>
     </servlet-mapping>
     
-    <servlet>
-        <servlet-name>AdminSessionDebugServlet</servlet-name>
-        <servlet-class>admin.AdminSessionDebugServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminSessionDebugServlet</servlet-name>
-        <url-pattern>/admin/session-debug</url-pattern>
-    </servlet-mapping>
-    
     <!-- Common/Logout Servlets -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>

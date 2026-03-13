@@ -311,11 +311,11 @@ public class DoctorDashboardServlet extends HttpServlet {
                 String patientUsername = rs.getString("patient_account_username");
                 
                 out.println("<div class='card'>");
-                out.println("<div class='patient-name'>" + patientName + "</div>");
-                out.println("<div class='appointment-date'>📅 " + appointmentDate + "</div>");
-                out.println("<div class='appointment-time'>⏰ " + appointmentTime + "</div>");
+                out.println("<div class='patient-name'>" + NavHelper.esc(patientName) + "</div>");
+                out.println("<div class='appointment-date'>📅 " + NavHelper.esc(appointmentDate) + "</div>");
+                out.println("<div class='appointment-time'>⏰ " + NavHelper.esc(appointmentTime) + "</div>");
                 out.println("<form action='patient-details' method='post'>");
-                out.println("<input type='hidden' name='patientUsername' value='" + patientUsername + "'>");
+                out.println("<input type='hidden' name='patientUsername' value='" + NavHelper.esc(patientUsername) + "'>");
                 out.println("<button type='submit' class='view-btn'>View Details</button>");
                 out.println("</form>");
                 out.println("</div>");

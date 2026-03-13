@@ -53,7 +53,9 @@ public class PatientLoginServlet extends HttpServlet {
                     }
                 }
 
-                // Login successful - create session
+                // Login successful - invalidate old session first to prevent session fixation
+                HttpSession oldSession = request.getSession(false);
+                if (oldSession != null) oldSession.invalidate();
                 HttpSession session = request.getSession(true);
                 session.setAttribute("username", username);
                 session.setAttribute("name", rs.getString("full_name"));

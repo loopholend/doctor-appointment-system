@@ -37,7 +37,13 @@ public class DoctorSaveDayOffServlet extends HttpServlet {
             return;
         }
         
-        int doctorId = Integer.parseInt(doctorIdParam);
+        int doctorId;
+        try {
+            doctorId = Integer.parseInt(doctorIdParam.trim());
+        } catch (NumberFormatException nfe) {
+            showMessage(response, "Error", "Invalid doctor ID.", "day-off", false);
+            return;
+        }
         String[] dates = selectedDates.split(",");
         
         Connection conn = null;

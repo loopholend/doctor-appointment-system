@@ -23,8 +23,12 @@ public class AdminLoginServlet extends HttpServlet {
         // Load admin password from db.properties (not hardcoded in source)
         String adminPassword = DBConnection.getAdminPassword();
 
-        if (adminPassword.equals(password)) {
-            // Successful login - CREATE SESSION
+        if (password != null && java.security.MessageDigest.isEqual(
+                adminPassword.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                password.getBytes(java.nio.charset.StandardCharsets.UTF_8))) {
+            // Successful login - CREATE SESSION (invalidate old session first to prevent session fixation)
+            HttpSession oldSession = request.getSession(false);
+            if (oldSession != null) oldSession.invalidate();
             HttpSession session = request.getSession(true);
             session.setAttribute("adminId", 1);
             session.setAttribute("adminName", "Administrator");

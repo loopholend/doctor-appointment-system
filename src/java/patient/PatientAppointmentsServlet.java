@@ -99,8 +99,8 @@ public class PatientAppointmentsServlet extends HttpServlet {
                 // Card Header
                 out.println("<div class='card-header'>");
                 out.println("<div class='doctor-info'>");
-                out.println("<div class='doctor-name'>Dr. " + rs.getString("full_name") + "</div>");
-                out.println("<div class='specialty'>" + rs.getString("primary_specialty") + "</div>");
+                out.println("<div class='doctor-name'>Dr. " + NavHelper.esc(rs.getString("full_name")) + "</div>");
+                out.println("<div class='specialty'>" + NavHelper.esc(rs.getString("primary_specialty")) + "</div>");
                 out.println("</div>");
                 
                 String status = rs.getString("appointment_status");
@@ -118,7 +118,7 @@ public class PatientAppointmentsServlet extends HttpServlet {
                 
                 out.println("<div class='detail-item'>");
                 out.println("<div class='detail-label'>Time</div>");
-                out.println("<div class='detail-value'>" + rs.getString("appointment_time") + "</div>");
+                out.println("<div class='detail-value'>" + NavHelper.esc(rs.getString("appointment_time")) + "</div>");
                 out.println("</div>");
                 
                 out.println("<div class='detail-item'>");
@@ -128,7 +128,7 @@ public class PatientAppointmentsServlet extends HttpServlet {
                 
                 out.println("<div class='detail-item'>");
                 out.println("<div class='detail-label'>Clinic Hours</div>");
-                out.println("<div class='detail-value'>" + rs.getString("clinic_visit_schedule") + "</div>");
+                out.println("<div class='detail-value'>" + NavHelper.esc(rs.getString("clinic_visit_schedule")) + "</div>");
                 out.println("</div>");
                 
                 out.println("</div>");

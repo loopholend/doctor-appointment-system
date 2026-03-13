@@ -191,8 +191,8 @@ public class AdminReportServlet extends HttpServlet {
                 String badgeClass = status.equals("approved") ? "approved" : (status.equals("pending") ? "pending" : "rejected");
                 
                 out.println("<tr>");
-                out.println("<td>" + rs.getString("full_name") + "</td>");
-                out.println("<td>" + rs.getString("primary_specialty") + "</td>");
+                out.println("<td>" + NavHelper.esc(rs.getString("full_name")) + "</td>");
+                out.println("<td>" + NavHelper.esc(rs.getString("primary_specialty")) + "</td>");
                 out.println("<td>" + rs.getString("years_of_experience") + "</td>");
                 out.println("<td>" + rs.getDouble("consultation_fee") + "</td>");
                 out.println("<td><span class='badge " + badgeClass + "'>" + status.toUpperCase() + "</span></td>");
@@ -220,8 +220,8 @@ public class AdminReportServlet extends HttpServlet {
             
             while (rs.next()) {
                 out.println("<tr>");
-                out.println("<td>" + rs.getString("full_name") + "</td>");
-                out.println("<td>" + rs.getString("username") + "</td>");
+                out.println("<td>" + NavHelper.esc(rs.getString("full_name")) + "</td>");
+                out.println("<td>" + NavHelper.esc(rs.getString("username")) + "</td>");
                 out.println("<td>" + rs.getInt("appointment_count") + "</td>");
                 out.println("</tr>");
             }

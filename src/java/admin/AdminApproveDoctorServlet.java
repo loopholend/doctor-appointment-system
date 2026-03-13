@@ -11,6 +11,11 @@ import javax.servlet.http.*;
 public class AdminApproveDoctorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect("doctor-requests");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -21,7 +26,18 @@ public class AdminApproveDoctorServlet extends HttpServlet {
             return;
         }
 
-        int doctorId = Integer.parseInt(request.getParameter("doctorId"));
+        String doctorIdStr = request.getParameter("doctorId");
+        if (doctorIdStr == null || doctorIdStr.trim().isEmpty()) {
+            response.sendRedirect("doctor-requests");
+            return;
+        }
+        int doctorId;
+        try {
+            doctorId = Integer.parseInt(doctorIdStr.trim());
+        } catch (NumberFormatException nfe) {
+            response.sendRedirect("doctor-requests");
+            return;
+        }
         int adminId = (Integer) session.getAttribute("adminId");
 
         Connection conn = null;
