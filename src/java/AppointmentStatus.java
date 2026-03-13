@@ -10,4 +10,5 @@ public final class AppointmentStatus {
     public static final String BOOKED    = "booked";
     public static final String CANCELLED = "cancelled";
     public static final String COMPLETED = "completed";
+    public static final String NO_SHOW   = "no_show";
 }

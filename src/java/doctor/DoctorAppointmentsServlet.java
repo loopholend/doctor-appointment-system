@@ -51,8 +51,12 @@ public class DoctorAppointmentsServlet extends HttpServlet {
         out.println(".status-booked{background:#DCFCE7;color:#166534}");
         out.println(".status-cancelled{background:#FEE2E2;color:#991B1B}");
         out.println(".status-completed{background:#DBEAFE;color:#1D4ED8}");
+        out.println(".status-no_show{background:#FEF3C7;color:#92400E}");
         out.println(".complete-btn{padding:8px 18px;background:#16A34A;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}");
         out.println(".complete-btn:hover{background:#15803D}");
+        out.println(".noshow-btn{padding:8px 18px;background:#DC2626;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}");
+        out.println(".noshow-btn:hover{background:#B91C1C}");
+        out.println(".action-btns{display:flex;gap:8px;flex-wrap:wrap}");
         out.println(".no-appts{text-align:center;padding:80px 20px}");
         out.println(".no-appts h2{font-size:22px;color:#1E293B;margin-bottom:10px;font-weight:700}");
         out.println(".no-appts p{font-size:15px;color:#64748B}");
@@ -71,6 +75,7 @@ public class DoctorAppointmentsServlet extends HttpServlet {
         out.println("<a href='" + base + "all'       class='filter-btn" + ("all".equals(filterStatus)       ? " active" : "") + "'>All</a>");
         out.println("<a href='" + base + "booked'    class='filter-btn" + ("booked".equals(filterStatus)    ? " active" : "") + "'>Booked</a>");
         out.println("<a href='" + base + "completed' class='filter-btn" + ("completed".equals(filterStatus) ? " active" : "") + "'>Completed</a>");
+        out.println("<a href='" + base + "no_show'   class='filter-btn" + ("no_show".equals(filterStatus)   ? " active" : "") + "'>No-Show</a>");
         out.println("<a href='" + base + "cancelled' class='filter-btn" + ("cancelled".equals(filterStatus) ? " active" : "") + "'>Cancelled</a>");
         out.println("</div>");
 
@@ -127,10 +132,18 @@ public class DoctorAppointmentsServlet extends HttpServlet {
                 out.println("</div>");
 
                 if (AppointmentStatus.BOOKED.equals(status)) {
-                    out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark this appointment as completed?\")'>");
+                    out.println("<div class='action-btns'>");
+                    out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark as completed? This means the patient showed up.\")'>");
                     out.println("  <input type='hidden' name='appointmentId' value='" + rs.getInt("appointment_id") + "'>");
-                    out.println("  <button type='submit' class='complete-btn'>&#10003; Mark Completed</button>");
+                    out.println("  <input type='hidden' name='action' value='complete'>");
+                    out.println("  <button type='submit' class='complete-btn'>&#10003; Completed</button>");
                     out.println("</form>");
+                    out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark as no-show? This means the patient did not show up.\")'>");
+                    out.println("  <input type='hidden' name='appointmentId' value='" + rs.getInt("appointment_id") + "'>");
+                    out.println("  <input type='hidden' name='action' value='noshow'>");
+                    out.println("  <button type='submit' class='noshow-btn'>&#10007; No-Show</button>");
+                    out.println("</form>");
+                    out.println("</div>");
                 }
 
                 out.println("</div>");

@@ -25,6 +25,8 @@ public class DoctorCompleteAppointmentServlet extends HttpServlet {
         int doctorId = (Integer) session.getAttribute("doctorId");
 
         String appointmentIdStr = request.getParameter("appointmentId");
+        String action           = request.getParameter("action"); // "complete" or "noshow"
+
         if (appointmentIdStr == null || appointmentIdStr.trim().isEmpty()) {
             response.sendRedirect("appointments");
             return;
@@ -37,25 +39,27 @@ public class DoctorCompleteAppointmentServlet extends HttpServlet {
             return;
         }
 
+        // Determine target status from action param (default to completed)
+        String newStatus = "noshow".equals(action)
+                ? AppointmentStatus.NO_SHOW
+                : AppointmentStatus.COMPLETED;
+
         Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
             conn = DBConnection.getConnection();
 
-            // Verify the appointment belongs to this doctor before updating
+            // Verify ownership and current status before updating
             String sql = "UPDATE appointments SET appointment_status = ? " +
                          "WHERE appointment_id = ? AND doctor_id = ? AND appointment_status = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, AppointmentStatus.COMPLETED);
+            pstmt.setString(1, newStatus);
             pstmt.setInt(2, appointmentId);
             pstmt.setInt(3, doctorId);
             pstmt.setString(4, AppointmentStatus.BOOKED);
+            pstmt.executeUpdate();
 
-            int updated = pstmt.executeUpdate();
-            if (updated == 0) {
-                // Either wrong doctor, wrong ID, or already completed/cancelled — just redirect
-            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
