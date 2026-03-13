@@ -3,3 +3,6 @@
 *.war
 *.class
 nbproject/private/
+# Keep bundled JARs tracked
+!lib/*.jar
+!web/WEB-INF/lib/*.jar
