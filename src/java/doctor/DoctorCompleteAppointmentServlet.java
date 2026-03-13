@@ -22,7 +22,12 @@ public class DoctorCompleteAppointmentServlet extends HttpServlet {
         if (NavHelper.requireDoctorSession(request, response) == null) return;
 
         HttpSession session = request.getSession(false);
-        int doctorId = (Integer) session.getAttribute("doctorId");
+        String doctorUsername = (String) session.getAttribute("doctorUsername");
+        int doctorId = getDoctorProfileId(doctorUsername);
+        if (doctorId == 0) {
+            response.sendRedirect("appointments");
+            return;
+        }
 
         String appointmentIdStr = request.getParameter("appointmentId");
         String action           = request.getParameter("action"); // "complete" or "noshow"
@@ -70,5 +75,27 @@ public class DoctorCompleteAppointmentServlet extends HttpServlet {
         }
 
         response.sendRedirect("appointments");
+    }
+
+    private int getDoctorProfileId(String username) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBConnection.getConnection();
+            pstmt = conn.prepareStatement("SELECT doctor_id FROM doctor_profiles WHERE username = ?");
+            pstmt.setString(1, username);
+            rs = pstmt.executeQuery();
+            if (rs.next()) return rs.getInt("doctor_id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception ex) { ex.printStackTrace(); }
+        }
+        return 0;
     }
 }

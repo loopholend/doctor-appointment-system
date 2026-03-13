@@ -19,7 +19,12 @@ public class DoctorAppointmentsServlet extends HttpServlet {
         if (doctorName == null) return;
 
         HttpSession session = request.getSession(false);
-        int doctorId = (Integer) session.getAttribute("doctorId");
+        String doctorUsername = (String) session.getAttribute("doctorUsername");
+        int doctorId = getDoctorProfileId(doctorUsername);
+        if (doctorId == 0) {
+            response.sendRedirect("dashboard");
+            return;
+        }
 
         String filterStatus = request.getParameter("status");
         if (filterStatus == null || filterStatus.trim().isEmpty()) filterStatus = "all";
@@ -175,5 +180,27 @@ public class DoctorAppointmentsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    private int getDoctorProfileId(String username) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBConnection.getConnection();
+            pstmt = conn.prepareStatement("SELECT doctor_id FROM doctor_profiles WHERE username = ?");
+            pstmt.setString(1, username);
+            rs = pstmt.executeQuery();
+            if (rs.next()) return rs.getInt("doctor_id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception ex) { ex.printStackTrace(); }
+        }
+        return 0;
     }
 }
