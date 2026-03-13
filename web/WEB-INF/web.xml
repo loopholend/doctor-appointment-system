@@ -182,6 +182,22 @@
         <servlet-name>DoctorPatientDetailsServlet</servlet-name>
         <url-pattern>/doctor/patient-details</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>DoctorAppointmentsServlet</servlet-name>
+        <servlet-class>doctor.DoctorAppointmentsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorAppointmentsServlet</servlet-name>
+        <url-pattern>/doctor/appointments</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DoctorCompleteAppointmentServlet</servlet-name>
+        <servlet-class>doctor.DoctorCompleteAppointmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorCompleteAppointmentServlet</servlet-name>
+        <url-pattern>/doctor/complete-appointment</url-pattern>
+    </servlet-mapping>
     
     <!-- Admin Servlets -->
     <servlet>
