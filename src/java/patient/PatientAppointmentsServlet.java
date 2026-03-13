@@ -99,7 +99,7 @@ public class PatientAppointmentsServlet extends HttpServlet {
                 // Card Header
                 out.println("<div class='card-header'>");
                 out.println("<div class='doctor-info'>");
-                out.println("<div class='doctor-name'>Dr. " + NavHelper.esc(rs.getString("full_name")) + "</div>");
+                out.println("<div class='doctor-name'>" + NavHelper.esc(rs.getString("full_name")) + "</div>");
                 out.println("<div class='specialty'>" + NavHelper.esc(rs.getString("primary_specialty")) + "</div>");
                 out.println("</div>");
                 

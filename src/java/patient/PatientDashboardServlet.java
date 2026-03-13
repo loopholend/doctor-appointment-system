@@ -141,7 +141,7 @@ public class PatientDashboardServlet extends HttpServlet {
                 }
                 
                 out.println("<div class='card-content'>");
-                out.println("<div class='doctor-name'>Dr. " + NavHelper.esc(rs.getString("full_name")) + "</div>");
+                out.println("<div class='doctor-name'>" + NavHelper.esc(rs.getString("full_name")) + "</div>");
                 
                 out.println("<div class='info-row'>");
                 out.println("<span class='info-label'>Specialty:</span>");
