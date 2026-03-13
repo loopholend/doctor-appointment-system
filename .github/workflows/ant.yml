@@ -1,5 +1,8 @@
-# CI: Build Doctor Appointment System with Ant
-# Requires no external server — all JARs are bundled in lib/
+# ──────────────────────────────────────────────────────────────────
+# Doctor Appointment System — GitHub Actions CI
+# Ant project: compile → package WAR → upload artifact
+# No external server required (all JARs bundled in lib/)
+# ──────────────────────────────────────────────────────────────────
 
 name: Java CI with Ant
 
@@ -9,28 +12,48 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Fix Node.js 20 deprecation warning on GitHub-hosted runners
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
+    name: Build & Package
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+
+      # ── 1. Checkout ────────────────────────────────────────────────
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 8
+      # ── 2. Java ────────────────────────────────────────────────────
+      - name: Set up JDK 8 (Temurin)
         uses: actions/setup-java@v4
         with:
           java-version: '8'
           distribution: 'temurin'
+          cache: 'gradle'   # caches ~/.gradle; harmless when unused
 
-      - name: Compile with Ant
-        run: ant compile
+      # ── 3. Verify Ant ──────────────────────────────────────────────
+      - name: Print Ant & Java version
+        run: |
+          ant -version
+          java -version
 
-      - name: Package WAR with Ant
-        run: ant war
+      # ── 4. Compile ─────────────────────────────────────────────────
+      - name: Compile Java sources
+        run: ant -noinput compile
 
+      # ── 5. Package ─────────────────────────────────────────────────
+      - name: Package WAR
+        run: ant -noinput war
+
+      # ── 6. Upload artefact ─────────────────────────────────────────
       - name: Upload WAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: Doctor-Appointment-System-WAR
           path: dist/Doctor-Appointment-System.war
+          retention-days: 30
+          if-no-files-found: error
