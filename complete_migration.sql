@@ -1,4 +1,4 @@
--- Complete MySQL Migration Script
+-- Doctor Appointment System: Complete MySQL migration script
 -- Step 1: Check current state
 SHOW DATABASES;
 SELECT 'Currently in test database' as status;

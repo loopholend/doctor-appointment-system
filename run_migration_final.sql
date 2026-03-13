@@ -1,5 +1,5 @@
 -- ============================================================
--- Full migration: test -> medical_appointment_system
+-- Doctor Appointment System: Full migration test -> medical_appointment_system
 -- ============================================================
 
 -- Step 1: Create new database

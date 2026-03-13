@@ -1,3 +1,4 @@
+-- Doctor Appointment System: DB migration status check
 -- Step 1: Check if tables exist in 'test' database
 SELECT 'Checking test database tables:' as status;
 SELECT TABLE_NAME FROM information_schema.TABLES 

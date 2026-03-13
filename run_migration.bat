@@ -1,4 +1,5 @@
 @echo off
+REM Doctor Appointment System: run MySQL migration
 echo ===================================================
 echo  Doctor Appointment System - MySQL Migration
 echo  (All data is preserved - RENAME TABLE moves data)
