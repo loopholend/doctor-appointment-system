@@ -194,7 +194,7 @@ CREATE TABLE appointments (
   patient_account_username VARCHAR(50)   DEFAULT NULL,
   appointment_time         VARCHAR(10)   NOT NULL,
   appointment_date         DATE          NOT NULL,
-  appointment_status       ENUM('booked','cancelled') DEFAULT NULL,
+  appointment_status       ENUM('booked','cancelled','completed','no_show') DEFAULT 'booked',
   created_at               TIMESTAMP     NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (appointment_id),
   KEY doctor_id          (doctor_id),
@@ -219,7 +219,7 @@ CREATE TABLE appointments (
 | `patient_account_username` | VARCHAR(50) | FK → `patients.username` (CASCADE DELETE) |
 | `appointment_time` | VARCHAR(10) | e.g. `"10:30 AM"` |
 | `appointment_date` | DATE | |
-| `appointment_status` | ENUM | `booked` / `cancelled` |
+| `appointment_status` | ENUM | `booked` / `cancelled` / `completed` / `no_show` |
 | `created_at` | TIMESTAMP | Auto-set on insert |
 
 ---
@@ -388,7 +388,7 @@ CREATE TABLE IF NOT EXISTS appointments (
   patient_account_username VARCHAR(50)                DEFAULT NULL,
   appointment_time         VARCHAR(10)                NOT NULL,
   appointment_date         DATE                       NOT NULL,
-  appointment_status       ENUM('booked','cancelled') DEFAULT NULL,
+  appointment_status       ENUM('booked','cancelled','completed','no_show') DEFAULT 'booked',
   created_at               TIMESTAMP                  NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (appointment_id),
   KEY doctor_id        (doctor_id),
