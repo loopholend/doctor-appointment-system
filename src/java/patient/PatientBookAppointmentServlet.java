@@ -153,9 +153,16 @@ public class PatientBookAppointmentServlet extends HttpServlet {
             out.println("<h2>Select Appointment Date</h2>");
             out.println("<p>Booking with Dr. " + doctorName + "</p>");
             out.println("</div>");
+
+            // Show error/info messages
+            String msg = request.getParameter("msg");
+            if ("past_date".equals(msg)) {
+                out.println("<div style='background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-weight:600;text-align:center'>⚠ You cannot book an appointment for a past date. Please select a future date.</div>");
+            } else if ("slot_taken".equals(msg)) {
+                out.println("<div style='background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-weight:600;text-align:center'>⚠ That time slot was just booked by someone else. Please choose another.</div>");
+            }
             
             out.println("<div class='calendar-container'>");
-            
             LocalDate today = LocalDate.now();
             generateCalendar(out, today, doctorId, unavailableDates);
             
@@ -513,6 +520,17 @@ public class PatientBookAppointmentServlet extends HttpServlet {
         int doctorId = Integer.parseInt(request.getParameter("doctorId"));
         String dateStr = request.getParameter("date");
         String time = request.getParameter("time");
+
+        // Server-side past-date guard (calendar UI can be bypassed via direct POST)
+        try {
+            if (java.time.LocalDate.parse(dateStr).isBefore(java.time.LocalDate.now())) {
+                response.sendRedirect("book-appointment?doctorId=" + doctorId + "&msg=past_date");
+                return;
+            }
+        } catch (Exception ignored) {
+            response.sendRedirect("book-appointment?doctorId=" + doctorId);
+            return;
+        }
 
         Connection conn = null;
         PreparedStatement pstmt = null;

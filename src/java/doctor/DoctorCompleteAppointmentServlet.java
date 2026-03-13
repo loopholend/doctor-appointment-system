@@ -30,7 +30,10 @@ public class DoctorCompleteAppointmentServlet extends HttpServlet {
         }
 
         String appointmentIdStr = request.getParameter("appointmentId");
-        String action           = request.getParameter("action"); // "complete" or "noshow"
+        String action           = request.getParameter("action");
+        String notes            = request.getParameter("notes");
+        if (notes != null) notes = notes.trim();
+        if (notes != null && notes.isEmpty()) notes = null;
 
         if (appointmentIdStr == null || appointmentIdStr.trim().isEmpty()) {
             response.sendRedirect("appointments");
@@ -56,13 +59,14 @@ public class DoctorCompleteAppointmentServlet extends HttpServlet {
             conn = DBConnection.getConnection();
 
             // Verify ownership and current status before updating
-            String sql = "UPDATE appointments SET appointment_status = ? " +
+            String sql = "UPDATE appointments SET appointment_status = ?, notes = ? " +
                          "WHERE appointment_id = ? AND doctor_id = ? AND appointment_status = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newStatus);
-            pstmt.setInt(2, appointmentId);
-            pstmt.setInt(3, doctorId);
-            pstmt.setString(4, AppointmentStatus.BOOKED);
+            pstmt.setString(2, notes);
+            pstmt.setInt(3, appointmentId);
+            pstmt.setInt(4, doctorId);
+            pstmt.setString(5, AppointmentStatus.BOOKED);
             pstmt.executeUpdate();
 
         } catch (Exception e) {

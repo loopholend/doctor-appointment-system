@@ -195,6 +195,7 @@ CREATE TABLE appointments (
   appointment_time         VARCHAR(10)   NOT NULL,
   appointment_date         DATE          NOT NULL,
   appointment_status       ENUM('booked','cancelled','completed','no_show') DEFAULT 'booked',
+  notes                    TEXT          DEFAULT NULL,
   created_at               TIMESTAMP     NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (appointment_id),
   KEY doctor_id          (doctor_id),
@@ -220,6 +221,7 @@ CREATE TABLE appointments (
 | `appointment_time` | VARCHAR(10) | e.g. `"10:30 AM"` |
 | `appointment_date` | DATE | |
 | `appointment_status` | ENUM | `booked` / `cancelled` / `completed` / `no_show` |
+| `notes` | TEXT | Optional doctor notes/diagnosis; set when marking complete |
 | `created_at` | TIMESTAMP | Auto-set on insert |
 
 ---
@@ -389,6 +391,7 @@ CREATE TABLE IF NOT EXISTS appointments (
   appointment_time         VARCHAR(10)                NOT NULL,
   appointment_date         DATE                       NOT NULL,
   appointment_status       ENUM('booked','cancelled','completed','no_show') DEFAULT 'booked',
+  notes                    TEXT                       DEFAULT NULL,
   created_at               TIMESTAMP                  NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (appointment_id),
   KEY doctor_id        (doctor_id),

@@ -42,6 +42,8 @@ public class PatientAppointmentsServlet extends HttpServlet {
         out.println(".status-badge{padding:4px 12px;border-radius:20px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}");
         out.println(".status-booked{background:#DCFCE7;color:#166534}");
         out.println(".status-cancelled{background:#FEE2E2;color:#991B1B}");
+        out.println(".status-completed{background:#DBEAFE;color:#1E40AF}");
+        out.println(".status-no_show{background:#FEF3C7;color:#92400E}");
         out.println(".appointment-details{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}");
         out.println(".detail-item{background:#EFF6FF;padding:12px 16px;border-radius:8px}");
         out.println(".detail-label{font-size:11px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}");
@@ -53,6 +55,12 @@ public class PatientAppointmentsServlet extends HttpServlet {
         out.println(".no-appointments p{font-size:15px;color:#64748B;margin-bottom:24px}");
         out.println(".btn-primary{display:inline-block;padding:10px 20px;background:#1D4ED8;color:white;text-decoration:none;border-radius:8px;font-weight:600;transition:all 0.2s;font-size:14px}");
         out.println(".btn-primary:hover{background:#1E40AF}");
+        out.println(".filter-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}");
+        out.println(".filter-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:2px solid #E2E8F0;background:#fff;color:#64748B;text-decoration:none;transition:all 0.2s}");
+        out.println(".filter-tab:hover{border-color:#1D4ED8;color:#1D4ED8}");
+        out.println(".filter-tab.active{background:#1D4ED8;color:white;border-color:#1D4ED8}");
+        out.println(".notes-block{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px 16px;margin-top:4px;margin-bottom:12px;font-size:14px;color:#334155;line-height:1.6}");
+        out.println(".notes-label{font-size:11px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}");
         out.println("</style>");
         out.println("</head><body>");
 
@@ -62,6 +70,17 @@ public class PatientAppointmentsServlet extends HttpServlet {
         // Main content
         out.println("<div class='main-content'>");
         out.println("<h1 class='page-title'>My Appointments</h1>");
+
+        // Filter tabs
+        String filterParam = request.getParameter("filter");
+        if (filterParam == null) filterParam = "all";
+        out.println("<div class='filter-tabs'>");
+        for (String[] tab : new String[][]{{"all","All"},{"booked","Booked"},{"completed","Completed"},{"no_show","No-Show"},{"cancelled","Cancelled"}}) {
+            String cls = filterParam.equals(tab[0]) ? " active" : "";
+            out.println("<a class='filter-tab" + cls + "' href='appointments?filter=" + tab[0] + "'>" + tab[1] + "</a>");
+        }
+        out.println("</div>");
+
         out.println("<div class='appointments-container'>");
 
         Connection conn = null;
@@ -79,15 +98,17 @@ public class PatientAppointmentsServlet extends HttpServlet {
             cancelPast.executeUpdate();
             cancelPast.close();
 
-            String sql = "SELECT a.appointment_id, a.appointment_date, a.appointment_time, a.appointment_status, " +
+            String sql = "SELECT a.appointment_id, a.appointment_date, a.appointment_time, a.appointment_status, a.notes, " +
                         "d.full_name, d.primary_specialty, d.consultation_fee, d.clinic_visit_schedule " +
                         "FROM appointments a " +
                         "JOIN doctor_profiles d ON a.doctor_id = d.doctor_id " +
                         "WHERE a.patient_account_username = ? " +
+                        ("all".equals(filterParam) ? "" : "AND a.appointment_status = ? ") +
                         "ORDER BY a.appointment_date DESC, a.appointment_time DESC";
             
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, patientUsername);
+            if (!"all".equals(filterParam)) pstmt.setString(2, filterParam);
             rs = pstmt.executeQuery();
 
             boolean hasAppointments = false;
@@ -104,8 +125,15 @@ public class PatientAppointmentsServlet extends HttpServlet {
                 out.println("</div>");
                 
                 String status = rs.getString("appointment_status");
-                String statusClass = "booked".equals(status) ? "status-booked" : "status-cancelled";
-                out.println("<div class='status-badge " + statusClass + "'>" + status + "</div>");
+                String statusClass;
+                switch (status) {
+                    case "booked":    statusClass = "status-booked"; break;
+                    case "completed": statusClass = "status-completed"; break;
+                    case "no_show":   statusClass = "status-no_show"; break;
+                    default:          statusClass = "status-cancelled";
+                }
+                String statusLabel = "no_show".equals(status) ? "No-Show" : status.substring(0,1).toUpperCase() + status.substring(1);
+                out.println("<div class='status-badge " + statusClass + "'>" + statusLabel + "</div>");
                 out.println("</div>");
                 
                 // Appointment Details
@@ -133,6 +161,15 @@ public class PatientAppointmentsServlet extends HttpServlet {
                 
                 out.println("</div>");
                 
+                // Notes from doctor (if any)
+                String notes = rs.getString("notes");
+                if (notes != null && !notes.isEmpty()) {
+                    out.println("<div class='notes-block'>");
+                    out.println("<div class='notes-label'>&#128203; Doctor's Notes</div>");
+                    out.println(NavHelper.esc(notes));
+                    out.println("</div>");
+                }
+                
                 // Cancel button (only for booked appointments)
                 if ("booked".equals(status)) {
                     out.println("<form action='cancel-appointment' method='post' style='margin-top:15px' onsubmit='return confirm(\"Are you sure you want to cancel this appointment?\")'>");
@@ -146,9 +183,14 @@ public class PatientAppointmentsServlet extends HttpServlet {
             
             if (!hasAppointments) {
                 out.println("<div class='no-appointments'>");
-                out.println("<h2>No Appointments Yet</h2>");
-                out.println("<p>You haven't booked any appointments.</p>");
-                out.println("<a href='dashboard' class='btn-primary'>Browse Doctors</a>");
+                out.println("<h2>No Appointments Found</h2>");
+                if ("all".equals(filterParam)) {
+                    out.println("<p>You haven't booked any appointments.</p>");
+                    out.println("<a href='dashboard' class='btn-primary'>Browse Doctors</a>");
+                } else {
+                    out.println("<p>No appointments with status \"" + NavHelper.esc(filterParam) + "\".</p>");
+                    out.println("<a href='appointments' class='btn-primary'>View All</a>");
+                }
                 out.println("</div>");
             }
 

@@ -277,6 +277,16 @@ public class DoctorDashboardServlet extends HttpServlet {
         out.println(".done-btn:hover{background:#15803D}");
         out.println(".noshow-btn{flex:1;padding:8px;background:#DC2626;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}");
         out.println(".noshow-btn:hover{background:#B91C1C}");
+        out.println(".modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center}");
+        out.println(".modal-overlay.open{display:flex}");
+        out.println(".modal-box{background:#fff;padding:28px;border-radius:12px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}");
+        out.println(".modal-title{font-size:18px;font-weight:700;color:#1E293B;margin-bottom:8px}");
+        out.println(".modal-sub{font-size:14px;color:#64748B;margin-bottom:16px}");
+        out.println(".modal-label{font-size:12px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px}");
+        out.println(".modal-textarea{width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;min-height:90px;box-sizing:border-box}");
+        out.println(".modal-actions{display:flex;gap:10px;margin-top:16px}");
+        out.println(".modal-cancel{flex:1;padding:10px;background:#F1F5F9;color:#64748B;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}");
+        out.println(".modal-confirm{flex:1;padding:10px;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}");
         out.println(".no-appointments{text-align:center;padding:80px 20px}");
         out.println(".no-appointments h2{font-size:22px;color:#1E293B;margin-bottom:12px;font-weight:700}");
         out.println(".no-appointments p{font-size:15px;color:#64748B}");
@@ -324,16 +334,9 @@ public class DoctorDashboardServlet extends HttpServlet {
                 out.println("<button type='submit' class='view-btn'>View Details</button>");
                 out.println("</form>");
                 out.println("<div class='card-actions'>");
-                out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark as completed?\")'>");
-                out.println("<input type='hidden' name='appointmentId' value='" + rs.getInt("appointment_id") + "'>");
-                out.println("<input type='hidden' name='action' value='complete'>");
-                out.println("<button type='submit' class='done-btn'>&#10003; Completed</button>");
-                out.println("</form>");
-                out.println("<form action='complete-appointment' method='post' onsubmit='return confirm(\"Mark as no-show?\")'>");
-                out.println("<input type='hidden' name='appointmentId' value='" + rs.getInt("appointment_id") + "'>");
-                out.println("<input type='hidden' name='action' value='noshow'>");
-                out.println("<button type='submit' class='noshow-btn'>&#10007; No-Show</button>");
-                out.println("</form>");
+                int apptId = rs.getInt("appointment_id");
+                out.println("<button type='button' class='done-btn' onclick='openModal(" + apptId + ",\"complete\")'>&#10003; Completed</button>");
+                out.println("<button type='button' class='noshow-btn' onclick='openModal(" + apptId + ",\"noshow\")'>&#10007; No-Show</button>");
                 out.println("</div>");
                 out.println("</div>");
             }
@@ -363,6 +366,45 @@ public class DoctorDashboardServlet extends HttpServlet {
 
         out.println("</div></div>");
         NavHelper.writeSidebarJS(out);
+        // Notes modal for Complete / No-Show actions
+        out.println("<div class='modal-overlay' id='actionModal'>");
+        out.println("  <div class='modal-box'>");
+        out.println("    <div class='modal-title' id='modalTitle'>Confirm Action</div>");
+        out.println("    <div class='modal-sub' id='modalSub'></div>");
+        out.println("    <label class='modal-label'>Notes / Diagnosis (optional)</label>");
+        out.println("    <textarea class='modal-textarea' id='modalNotes' placeholder='Enter any notes or diagnosis...'></textarea>");
+        out.println("    <div class='modal-actions'>");
+        out.println("      <button class='modal-cancel' onclick='closeModal()'>Cancel</button>");
+        out.println("      <button class='modal-confirm' id='modalConfirm' onclick='submitModal()'>Confirm</button>");
+        out.println("    </div>");
+        out.println("  </div>");
+        out.println("</div>");
+        out.println("<form id='actionForm' action='complete-appointment' method='post' style='display:none'>");
+        out.println("  <input type='hidden' name='appointmentId' id='formApptId'>");
+        out.println("  <input type='hidden' name='action' id='formAction'>");
+        out.println("  <input type='hidden' name='notes' id='formNotes'>");
+        out.println("</form>");
+        out.println("<script>");
+        out.println("function openModal(id,action){");
+        out.println("  var m=document.getElementById('actionModal');");
+        out.println("  document.getElementById('formApptId').value=id;");
+        out.println("  document.getElementById('formAction').value=action;");
+        out.println("  document.getElementById('modalNotes').value='';");
+        out.println("  var isComplete=action==='complete';");
+        out.println("  document.getElementById('modalTitle').textContent=isComplete?'Mark as Completed':'Mark as No-Show';");
+        out.println("  document.getElementById('modalSub').textContent=isComplete?'Confirm this appointment is completed.':'Confirm the patient did not show up.';");
+        out.println("  var btn=document.getElementById('modalConfirm');");
+        out.println("  btn.style.background=isComplete?'#16A34A':'#DC2626';");
+        out.println("  m.classList.add('open');");
+        out.println("  document.getElementById('modalNotes').focus();");
+        out.println("}");
+        out.println("function closeModal(){document.getElementById('actionModal').classList.remove('open');}");
+        out.println("function submitModal(){");
+        out.println("  document.getElementById('formNotes').value=document.getElementById('modalNotes').value;");
+        out.println("  document.getElementById('actionForm').submit();");
+        out.println("}");
+        out.println("document.getElementById('actionModal').addEventListener('click',function(e){if(e.target===this)closeModal();});");
+        out.println("</script>");
         out.println("</body></html>");
     }
 }
